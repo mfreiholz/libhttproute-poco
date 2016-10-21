@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-#include "libhttproute/http_server_request.h"
+#include "libhttproute/request.h"
 
 #include "Poco/Net/HTTPServerRequest.h"
 

@@ -15,7 +15,7 @@
 #include "libhttproute/route_matcher.h"
 #include "libhttproute/route_matcher_impl.h"
 
-#include "libhttproute-poco/routed_http_request_handler.h"
+#include "routed_http_request_handler.h"
 
 #include <stdio.h>
 #include <functional>
