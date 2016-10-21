@@ -98,7 +98,7 @@ public:
 	DemoRequestHandlerFactory()
 	{
 		router().newRoute()
-		.byMatcher(std::make_shared<HR_NS::RoutePathMatcher>("/hello/{name:[a-z]+}/"))
+		.byMatcher(std::make_shared<HR_NS::RoutePathMatcher>("/hello/{name:[a-z]+}"))
 		.withObject(&_routeHello);
 
 		router().newRoute()
