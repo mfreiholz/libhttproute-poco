@@ -19,10 +19,8 @@ endif(WIN32)
 add_library(
 	${PROJECT_NAME}
 	STATIC
-	${PROJECT_NAME}/request.h
-	${PROJECT_NAME}/routed_http_request_handler.h
-	${PROJECT_NAME}/request.cpp
-	${PROJECT_NAME}/routed_http_request_handler.cpp
+	${PROJECT_NAME}/libhttproute-poco.h
+	${PROJECT_NAME}/libhttproute-poco.cpp
 )
 target_link_libraries(
 	${PROJECT_NAME}

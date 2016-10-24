@@ -1,4 +1,5 @@
-#include "request.h"
+#include <stdio.h>
+#include <functional>
 
 #include "Poco/Net/HTTPRequestHandlerFactory.h"
 #include "Poco/Net/HTTPRequestHandler.h"
@@ -15,23 +16,22 @@
 #include "libhttproute/route_matcher.h"
 #include "libhttproute/route_matcher_impl.h"
 
-#include "routed_http_request_handler.h"
-
-#include <stdio.h>
-#include <functional>
+#include "libhttproute-poco.h"
 
 using namespace Poco;
 using namespace Poco::Net;
 using namespace Poco::Util;
 
 
-class DemoHelloHandler : public RoutedHTTPRequestHandler
+class HelloHandler :
+	public RoutedHTTPRequestHandler
 {
 public:
-	DemoHelloHandler(std::tuple<std::shared_ptr<HR_NS::Route>, HR_NS::RouteMatch> t) :
+	HelloHandler(std::tuple<std::shared_ptr<HR_NS::Route>, HR_NS::RouteMatch> t) :
 		RoutedHTTPRequestHandler(t)
 	{}
-	virtual void handleRequest(HTTPServerRequest& req, HTTPServerResponse& resp)
+
+	virtual void handleRequest(HTTPServerRequest&, HTTPServerResponse& resp)
 	{
 		const auto& rm = routeMatch();
 
@@ -45,7 +45,7 @@ public:
 		out.flush();
 	}
 };
-ROUTED_HANDLER_FACTORY(DemoHelloHandler);
+ROUTED_HANDLER_FACTORY(HelloHandler);
 
 
 class FooHandler :
@@ -55,7 +55,8 @@ public:
 	FooHandler(std::tuple<std::shared_ptr<HR_NS::Route>, HR_NS::RouteMatch> t) :
 		RoutedHTTPRequestHandler(t)
 	{}
-	virtual void handleRequest(HTTPServerRequest& req, HTTPServerResponse& resp)
+
+	virtual void handleRequest(HTTPServerRequest&, HTTPServerResponse& resp)
 	{
 		resp.setStatus(HTTPResponse::HTTP_OK);
 		resp.setContentType("text/plain");
@@ -75,7 +76,8 @@ public:
 	BarHandler(std::tuple<std::shared_ptr<HR_NS::Route>, HR_NS::RouteMatch> t) :
 		RoutedHTTPRequestHandler(t)
 	{}
-	virtual void handleRequest(HTTPServerRequest& req, HTTPServerResponse& resp)
+
+	virtual void handleRequest(HTTPServerRequest&, HTTPServerResponse& resp)
 	{
 		resp.setStatus(HTTPResponse::HTTP_OK);
 		resp.setContentType("text/plain");
@@ -88,9 +90,10 @@ public:
 ROUTED_HANDLER_FACTORY(BarHandler);
 
 
-class DemoRequestHandlerFactory : public RoutedHTTPRequestHandlerFactory
+class DemoRequestHandlerFactory :
+	public RoutedHTTPRequestHandlerFactory
 {
-	DemoHelloHandlerFactory _routeHello;
+	HelloHandlerFactory _routeHello;
 	FooHandlerFactory _routeFoo;
 	BarHandlerFactory _routeBar;
 
@@ -135,7 +138,8 @@ public:
 };
 
 
-class MyDemoApp : public ServerApplication
+class MyDemoApp :
+	public ServerApplication
 {
 public:
 	int main(const std::vector<std::string>&)
