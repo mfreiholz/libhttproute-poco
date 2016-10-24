@@ -98,18 +98,39 @@ public:
 	DemoRequestHandlerFactory()
 	{
 		router().newRoute()
-		.byMatcher(std::make_shared<HR_NS::RoutePathMatcher>("/hello/{name:[a-z]+}"))
-		.withObject(&_routeHello);
-
-		router().newRoute()
-		.byMatcher(std::make_shared<HR_NS::RoutePathPrefixMatcher>("/foo"))
 		.byMatcher(std::make_shared<HR_NS::RouteMethodMatcher>("GET"))
+		.byMatcher(std::make_shared<HR_NS::RoutePathPrefixMatcher>("/method"))
 		.withObject(&_routeFoo);
 
 		router().newRoute()
-		.byMatcher(std::make_shared<HR_NS::RoutePathPrefixMatcher>("/bar"))
-		.byMatcher(std::make_shared<HR_NS::RouteMethodMatcher>("GET"))
+		.byMatcher(std::make_shared<HR_NS::RouteHeaderMatcher>("x-api", "123"))
+		.byMatcher(std::make_shared<HR_NS::RoutePathPrefixMatcher>("/header"))
 		.withObject(&_routeBar);
+
+		router().newRoute()
+		.byMatcher(std::make_shared<HR_NS::RouteHostMatcher>("localhost"))
+		.byMatcher(std::make_shared<HR_NS::RoutePathPrefixMatcher>("/host"))
+		.withObject(&_routeFoo);
+
+		router().newRoute()
+		.byMatcher(std::make_shared<HR_NS::RoutePathMatcher>("/path/{name:[a-z]+}"))
+		.withObject(&_routeHello);
+
+		router().newRoute()
+		.byMatcher(std::make_shared<HR_NS::RoutePathPrefixMatcher>("/pathprefix"))
+		.withObject(&_routeFoo);
+
+		std::map<std::string, std::string> params;
+		params.insert(std::make_pair("foo", "bar"));
+		router().newRoute()
+		.byMatcher(std::make_shared<HR_NS::RoutePathPrefixMatcher>("/query"))
+		.byMatcher(std::make_shared<HR_NS::RouteQueryParamsMatcher>(params))
+		.withObject(&_routeBar);
+
+		router().newRoute()
+		.byMatcher(std::make_shared<HR_NS::RouteSchemeMatcher>("http"))
+		.byMatcher(std::make_shared<HR_NS::RoutePathPrefixMatcher>("/scheme"))
+		.withObject(&_routeFoo);
 	}
 };
 
