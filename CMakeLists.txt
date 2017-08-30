@@ -3,13 +3,9 @@ project(libhttproute-poco)
 
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${PROJECT_SOURCE_DIR}/cmake")
 
-find_package(Poco REQUIRED)
-include_directories(${POCO_FOUNDATION_INCLUDE_DIRS})
-include_directories(${POCO_NET_INCLUDE_DIRS})
-include_directories(${POCO_UTIL_INCLUDE_DIRS})
-
-find_package(LibHttpRoute REQUIRED)
-include_directories(${LIBHTTPROUTE_INCLUDE_DIRS})
+include(ExternalProject)
+include(vendor/libhttproute.cmake)
+include(vendor/poco.cmake)
 
 if(WIN32)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
@@ -24,10 +20,8 @@ add_library(
 )
 target_link_libraries(
 	${PROJECT_NAME}
-	${POCO_FOUNDATION_LIBRARY}
-	${POCO_NET_LIBRARY}
-	${POCO_UTIL_LIBRARY}
-	${LIBHTTPROUTE_LIBRARY}
+	${LIBHTTPROUTE_LIBS}
+	${POCO_LIBS}
 )
 
 # demo binary
@@ -39,7 +33,6 @@ add_executable(
 target_link_libraries(
 	${PROJECT_NAME}_demo
 	${PROJECT_NAME}
-	${POCO_FOUNDATION_LIBRARY}
-	${POCO_NET_LIBRARY}
-	${POCO_UTIL_LIBRARY}
+	${LIBHTTPROUTE_LIBS}
+	${POCO_LIBS}
 )
