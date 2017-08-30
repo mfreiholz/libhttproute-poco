@@ -1,6 +1,32 @@
 # HTTP Routing Library for POCO
 
-Depends on [libhttproute](https://github.com/mfreiholz/libhttproute-cpp)
+Extension library for [libhttproute](https://github.com/mfreiholz/libhttproute-cpp) to provide bindings for POCO's HTTP Server request handlers.
+
+## Build
+
+All dependencies will be downloaded and build by CMake, what makes it very easy to build.
+Note that multi-target builds (Visual Studio) are not supported.
+You always have to specify the `-DCMAKE_BUILD_TYPE=` argument with `Release` or `Debug` as value.
+
+### Windows
+
+```bash
+mkdir build
+cd build
+cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release ..
+nmake
+```
+
+### Linux
+
+__Not yet available!__
+
+```bash
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
+nmake
+```
 
 ## Legal
 

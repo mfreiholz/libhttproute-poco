@@ -23,6 +23,11 @@ target_link_libraries(
 	${LIBHTTPROUTE_LIBS}
 	${POCO_LIBS}
 )
+add_dependencies(
+	${PROJECT_NAME}
+	libhttproute
+	pocoproject
+)
 
 # demo binary
 include_directories(${PROJECT_NAME})

@@ -6,8 +6,10 @@ if(WIN32)
 	# Debug/Release
 	if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 		set(POCO_BUILD_COMMAND buildwin.cmd 140 build shared debug Win32 nosamples notests msbuild)
+		set(POCO_LIBS CppUnitd.lib PocoFoundationd.lib PocoJSONd.lib PocoNetd.lib PocoUtild.lib PocoXMLd.lib)
 	else()
 		set(POCO_BUILD_COMMAND buildwin.cmd 140 build shared release Win32 nosamples notests msbuild)
+		set(POCO_LIBS CppUnit.lib PocoFoundation.lib PocoJSON.lib PocoNet.lib PocoUtil.lib PocoXML.lib)
 	endif()
 else(WIN32)
 	#Linux
@@ -51,10 +53,5 @@ if(WIN32)
 		${SOURCE_DIR}/XML/include
 	)
 	include_directories(${POCO_INCLUDE_DIRS})
-
-	set(POCO_LIBS
-		debug CppUnitd.lib PocoFoundationd.lib PocoJSONd.lib PocoNetd.lib PocoUtild.lib PocoXMLd.lib
-		optimized CppUnit.lib PocoFoundation.lib PocoJSON.lib PocoNet.lib PocoUtil.lib PocoXML.lib
-	)
 	link_directories(${SOURCE_DIR}/lib)
 endif(WIN32)
