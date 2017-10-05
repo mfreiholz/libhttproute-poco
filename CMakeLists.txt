@@ -26,7 +26,7 @@ target_link_libraries(
 add_dependencies(
 	${PROJECT_NAME}
 	libhttproute
-	pocoproject
+	poco
 )
 
 # demo binary
