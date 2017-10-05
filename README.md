@@ -17,19 +17,18 @@ cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release ..
 nmake
 ```
 
-### Linux
-
-__Not yet available!__
+### Linux (64-Bit)
 
 ```bash
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
-nmake
+make
 ```
 
 ## Legal
 
 The project uses a dual-licensing system.
 
-It is free for all non-commercial/non-profit use cases. If you want to use the library in a commercial/profit use case you should contact the project owner (info (at) mfreiholz (dot) de).
+It is free for all non-commercial/non-profit use cases.
+If you want to use the library in a commercial/profit use case you should contact the project owner (info (at) mfreiholz (dot) de).
